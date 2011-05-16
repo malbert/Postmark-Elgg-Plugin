@@ -1,0 +1,52 @@
+Elgg-Postmark
+=========================
+
+This plugin was developped for a personal project : I liked the idea of using Postmark for all the mailing.
+But the Elgg framework had only phpmailer at that time.
+
+This plugin is based on the work of Zack Kitzmiller that I would like to thanks.
+
+Installation
+------------
+
+Just copy the folder into your application's plugin folder (/mod/)
+
+The file postmarkmailer_init.SQL will be triggered during the first run of the plugin. 
+It will create a table to store emails before sending them.
+
+
+Usage
+------
+Configure the plugin via the administration pages.
+The plugin is thought to work with a cron job to send the emails.
+Like this, you can separate the user's navigation and the backend processing.
+But, you can disable the functionality if your application works without cron job. 
+
+Wherever you have to send a mail, you have just to call the plugin email function :
+
+postmark_send($from_email, $from_name, $to_email, $to_name, $subject, $body, array $bcc, $html, $files, $params)
+
+@param string $from       From address 
+@param string $from_name  From name
+@param string $to         To address
+@param string $to_name    To name
+@param string $subject    The subject of the message.
+@param string $body       The message body
+@param array  $bcc        Array of address strings
+@param bool   $html       Set true for html email, also consider setting altbody in $params array
+@param array  $files      Array of file descriptor arrays, each file array consists of full path and name 
+@param array  $params     Additional parameters
+@return bool
+
+If you send an html mail ($html = true), the plain text body is taken from the $params['plaintext'].
+If no value is present in $params, the plain text message is generated via the function strip_tags.
+
+ChangeLog
+---------
+* 0.1 First version
+
+Extra
+-----
+
+If you'd like to request changes, report bug fixes, or contact
+the developer of this library, email <malbert.dev@gmail.com>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin_manifest>
+	<field key="author" value="Michael Albert" />
+	<field key="version" value="0.1" />
+	<field key="description" value="Postmark Mailer" />
+	<field key="website" value="" />
+	<field key="licence" value="GPL - General Public License " />
+	<field key="elgg_version" value="2009030702" />
+</plugin_manifest>
