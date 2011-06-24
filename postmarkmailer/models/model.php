@@ -106,16 +106,23 @@ function postmark_cron() {
 		  		if($return){
 			  		$mail->is_sent = 1;
 			  		$sent_mail_id[] = $mail->id;
-			  	} elseif ($mail->send_try >= $attempt_max) {
-		  			$mail->is_fail = 1; 			
-		  			$result_query = "UPDATE elgg_postmarkmailer_queue";
-		  			$result_query .= " SET is_sent = " . $mail->is_sent . ", send_try = " . $mail->send_try . ", is_fail = " . $mail->is_fail . ";" ;
-			  		$query_result = update_data($result_query);
-			  	
-				  	if(!$query_result){
-				  		$error_message = "The mail with id " . $mail->id . "was not correctly updated in db : is_sent = ". $mail->is_sent .", is_fail = " . $mail->is_sent . ".";
-				  		elgg_log($error_message, 'ERROR');	
-				  	}
+			  	} else {
+		  			$mail->is_fail = 1;
+                                    
+                                        $result_query = "UPDATE elgg_postmarkmailer_queue";
+                                        $result_query .= " SET is_sent = " . $mail->is_sent . ", send_try = " . $mail->send_try . ", is_fail = " . $mail->is_fail . ";" ;
+                                        $query_result = update_data($result_query);
+
+                                        if(!$query_result){
+                                                $error_message = "The mail with id " . $mail->id . "was not correctly updated in db : is_sent = ". $mail->is_sent .", is_fail = " . $mail->is_sent . ".";
+                                                elgg_log($error_message, 'ERROR');
+                                        }
+
+                                        //for deletion
+                                        if ($mail->send_try >= $attempt_max) {
+                                            $sent_mail_id[] = $mail->id;			
+
+                                        }
 			  	}
 	
 			}

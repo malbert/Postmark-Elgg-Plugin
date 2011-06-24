@@ -22,7 +22,7 @@ The plugin is thought to work with a cron job to send the emails.
 Like this, you can separate the user's navigation and the backend processing.
 But, you can disable the functionality if your application works without cron job. 
 
-Wherever you have to send a mail, you have just to call the plugin email function :
+Wherever you have to send a mail in your application, you have just to call the plugin email function :
 
 postmark_send($from_email, $from_name, $to_email, $to_name, $subject, $body, array $bcc, $html, $files, $params)
 
